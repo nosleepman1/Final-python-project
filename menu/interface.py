@@ -35,3 +35,19 @@ def menu_technicien():
             incident_dao.resoudre_incident(incident_id)
 
             print("Incident résolu")
+
+def statistiques_admin():
+
+    dao = StatistiqueDAO()
+
+    print("\n=== INCIDENTS PAR STATUT ===")
+    print(dao.incidents_par_statut())
+
+    print("\n=== INCIDENTS PAR PRIORITE ===")
+    print(dao.incidents_par_priorite())
+
+    print("\n=== TOP TECHNICIENS ===")
+    print(dao.top_techniciens())
+
+    print("\n=== TEMPS MOYEN ===")
+    print(dao.temps_moyen_resolution())
