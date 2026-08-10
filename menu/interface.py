@@ -15,3 +15,23 @@ def menu_technicien():
             dao = IncidentDAO()
             dao.prendre_en_charge(incident_id)
             print("Incident pris en charge")
+
+        elif choix == "3":
+
+            incident_id = int(input("ID Incident : "))
+            commentaire = input("Commentaire : ")
+            duree = int(input("Durée : "))
+
+            intervention_dao.ajouter_intervention(
+                commentaire,
+                duree,
+                incident_id,
+                utilisateur_connecte.id
+            )
+
+        elif choix == "4":
+
+            incident_id = int(input("ID Incident : "))
+            incident_dao.resoudre_incident(incident_id)
+
+            print("Incident résolu")

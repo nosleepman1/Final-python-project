@@ -27,3 +27,15 @@ class IncidentDAO(BaseDAO):
         """
         self.cursor.execute(query, (incident_id,))
         self.conn.commit()
+
+def resoudre_incident(self, incident_id):
+
+    query = """
+    UPDATE incident
+    SET statut='RESOLU'
+    WHERE id=%s
+    AND statut='EN_COURS'
+    """
+
+    self.cursor.execute(query, (incident_id,))
+    self.conn.commit()
