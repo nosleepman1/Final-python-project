@@ -8,13 +8,11 @@ class ConnexionBD:
 
     @staticmethod
     def get_instance():
-        """Méthode statique pour récupérer l'instance unique de connexion (Singleton)."""
         if ConnexionBD.__instance is None or not ConnexionBD.__instance.is_connected():
             ConnexionBD()
         return ConnexionBD.__instance
 
     def __init__(self):
-        """Constructeur privé pour garantir le Singleton."""
         if ConnexionBD.__instance is not None and ConnexionBD.__instance.is_connected():
             raise Exception("Cette classe est un Singleton. Utilisez ConnexionBD.get_instance().")
         else:
