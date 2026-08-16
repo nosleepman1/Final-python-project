@@ -6,14 +6,14 @@ Projet académique de programmation **Python (POO)** et **Base de données relat
 
 ---
 
-##  Contributeurs
+## Contributeurs
 * **[Abdallah Diouf](https://github.com/nosleepman1)** 
 * **[El Hadj Boubacar Mbaye](https://github.com/Bouba-snb)**
 * **[Mohamed Dieye Tine](https://github.com/mohamedtine1975-droid)**
 
 ---
 
-##  Présentation du Projet
+## Présentation du Projet
 
 La Direction des Systèmes d’Information (DSI) souhaite centraliser et automatiser la gestion des incidents informatiques. Cette application console en Python permet :
 * **Aux utilisateurs (demandeurs)** : de déclarer des incidents, suivre l'avancement de leurs tickets et filtrer par statut ou priorité.
@@ -22,7 +22,7 @@ La Direction des Systèmes d’Information (DSI) souhaite centraliser et automat
 
 ---
 
-##  Architecture du Projet
+## Architecture du Projet
 
 Le projet applique le patron de conception **DAO (Data Access Object)** et sépare strictement les responsabilités :
 
@@ -58,17 +58,32 @@ gestion_incidents/
 
 ---
 
-##  Workflow des Statuts d'un Incident
+## Workflow des Statuts d'un Incident
 
 Les transitions de statuts respectent scrupuleusement le cycle de vie suivant :
 
-$$\text{OUVERT} \xrightarrow{\text{Prise en charge}} \text{EN\_COURS} \xrightarrow{\text{Résolution}} \text{RESOLU} \xrightarrow{\text{Fermeture}} \text{FERME}$$
+```mermaid
+flowchart LR
+    OUVERT["OUVERT"] -->|Prise en charge| EN_COURS["EN_COURS"]
+    EN_COURS -->|Résolution| RESOLU["RESOLU"]
+    RESOLU -->|Fermeture| FERME["FERME"]
+    OUVERT -->|Annulation| ANNULE["ANNULE"]
+```
+
+### Détail des transitions et des rôles
+
+| État Initial | Action | État Final | Rôle autorisé |
+| :--- | :--- | :--- | :--- |
+| `OUVERT` | **Prise en charge** | `EN_COURS` | Technicien / Admin |
+| `EN_COURS` | **Résolution** | `RESOLU` | Technicien / Admin |
+| `RESOLU` | **Fermeture** | `FERME` | Technicien / Admin |
+| `OUVERT` | **Annulation** *(optionnelle)* | `ANNULE` | Utilisateur créateur |
 
 > **Règle d'intégrité :** Le statut d'un incident ne peut jamais régresser (ex : un incident `RESOLU` ne peut pas repasser à `EN_COURS`).
 
 ---
 
-##  Prérequis et Installation
+## Prérequis et Installation
 
 ### 1. Prérequis
 * **Python 3.8+**
@@ -94,7 +109,7 @@ DB_CONFIG = {
 
 ---
 
-##  Initialisation et Démarrage
+## Initialisation et Démarrage
 
 ### Étape 1 : Créer les tables (Migration)
 Exécutez le script de création automatique des tables :
@@ -115,7 +130,7 @@ python main.py
 
 ---
 
-##  Comptes de Test Pré-configurés
+## Comptes de Test Pré-configurés
 
 | Identifiant (Login) | Mot de passe | Rôle | Description / Service |
 | :--- | :--- | :--- | :--- |
@@ -127,7 +142,7 @@ python main.py
 
 ---
 
-##  Statistiques Administrateur Disponibles
+## Statistiques Administrateur Disponibles
 
 L'administrateur a accès en temps réel aux indicateurs clés (KPIs) :
 1. Répartition du volume total d'incidents par **statut** (`OUVERT`, `EN_COURS`, `RESOLU`, `FERME`).
