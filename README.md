@@ -6,14 +6,14 @@ Projet académique de programmation **Python (POO)** et **Base de données relat
 
 ---
 
-## Membres du Groupe
-* **Membre 1 :** [Nom & Prénom] (Chef de projet)
-* **Membre 2 :** [Nom & Prénom]
-* **Membre 3 :** [Nom & Prénom] *(si trinôme)*
+## 👥 Contributeurs
+* **[Abdallah Diouf](https://github.com/nosleepman1)** 
+* **[El Hadj Boubacar Mbaye](https://github.com/Bouba-snb)**
+* **[Mohamed Dieye Tine](https://github.com/mohamedtine1975-droid)**
 
 ---
 
-## Présentation du Projet
+## 🎯 Présentation du Projet
 
 La Direction des Systèmes d’Information (DSI) souhaite centraliser et automatiser la gestion des incidents informatiques. Cette application console en Python permet :
 * **Aux utilisateurs (demandeurs)** : de déclarer des incidents, suivre l'avancement de leurs tickets et filtrer par statut ou priorité.
@@ -22,23 +22,23 @@ La Direction des Systèmes d’Information (DSI) souhaite centraliser et automat
 
 ---
 
-## Architecture du Projet
+## 🏗️ Architecture du Projet
 
 Le projet applique le patron de conception **DAO (Data Access Object)** et sépare strictement les responsabilités :
 
 ```
 gestion_incidents/
 │
-├── schema.sql                 # Script SQL complet (Création DB, tables et Seeders)
-├── create_tables.py           # Script de migration Python (création des tables)
-├── insert_test_data.py        # Script d'amorçage Python (données de test)
-├── main.py                    # Point d'entrée principal
-├── requirements.txt           # Dépendances Python
+├── main.py                    # Point d'entrée principal de l'application
+├── requirements.txt           # Dépendances Python (mysql-connector-python)
 ├── README.md                  # Documentation du projet
 │
 ├── database/
+│   ├── schema.sql             # Script SQL complet (Création DB, 3 tables et Seeders)
 │   ├── config.py              # Paramètres de connexion MySQL (hôte, port, mot de passe)
-│   └── connexion.py           # Gestionnaire de connexion Singleton (instance unique)
+│   ├── connexion.py           # Gestionnaire de connexion Singleton (instance unique)
+│   ├── create_tables.py       # Script de migration (création des tables)
+│   └── insert_test_data.py    # Script d'amorçage / Seeder (données initiales de test)
 │
 ├── models/
 │   ├── utilisateur.py         # Modèle Utilisateur
@@ -58,7 +58,7 @@ gestion_incidents/
 
 ---
 
-## Workflow des Statuts d'un Incident
+## 🔄 Workflow des Statuts d'un Incident
 
 Les transitions de statuts respectent scrupuleusement le cycle de vie suivant :
 
@@ -68,7 +68,7 @@ $$\text{OUVERT} \xrightarrow{\text{Prise en charge}} \text{EN\_COURS} \xrightarr
 
 ---
 
-## Prérequis et Installation
+## ⚙️ Prérequis et Installation
 
 ### 1. Prérequis
 * **Python 3.8+**
@@ -85,26 +85,27 @@ Vérifiez ou adaptez les identifiants dans le fichier `database/config.py` :
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '',         # Ex: 'root' ou mot de passe vide selon votre environnement
+    'password': '',         # Ex: '' sous Laragon ou 'root' selon votre configuration
     'database': 'gestion_incidents',
-    'port': 3306
+    'port': 3306,
+    'use_pure': True
 }
 ```
 
 ---
 
-## Initialisation et Démarrage
+## 🚀 Initialisation et Démarrage
 
 ### Étape 1 : Créer les tables (Migration)
 Exécutez le script de création automatique des tables :
 ```bash
-python create_tables.py
+python database/create_tables.py
 ```
-*(Ou importez directement le fichier `schema.sql` dans votre gestionnaire MySQL / phpMyAdmin).*
+*(Ou importez directement le fichier `database/schema.sql` dans votre gestionnaire MySQL / phpMyAdmin).*
 
 ### Étape 2 : Insérer le jeu de données de test (Seeder)
 ```bash
-python insert_test_data.py
+python database/insert_test_data.py
 ```
 
 ### Étape 3 : Lancer l'application
@@ -114,7 +115,7 @@ python main.py
 
 ---
 
-## Comptes de Test Pré-configurés
+## 🔑 Comptes de Test Pré-configurés
 
 | Identifiant (Login) | Mot de passe | Rôle | Description / Service |
 | :--- | :--- | :--- | :--- |
@@ -126,7 +127,7 @@ python main.py
 
 ---
 
-## Statistiques Administrateur Disponibles
+## 📊 Statistiques Administrateur Disponibles
 
 L'administrateur a accès en temps réel aux indicateurs clés (KPIs) :
 1. Répartition du volume total d'incidents par **statut** (`OUVERT`, `EN_COURS`, `RESOLU`, `FERME`).
